@@ -1,0 +1,59 @@
+﻿  stdafx.cpp
+  Numeric calculator.cpp
+c:\onedrive\projects\console\numeric calculator\numeric calculator\numeric calculator.cpp(45): error C2065: 'Stack': undeclared identifier
+c:\onedrive\projects\console\numeric calculator\numeric calculator\numeric calculator.cpp(45): error C2062: type 'double' unexpected
+c:\onedrive\projects\console\numeric calculator\numeric calculator\numeric calculator.cpp(48): error C2664: 'int isOperator(char)': cannot convert argument 1 from 'std::string' to 'char'
+  c:\onedrive\projects\console\numeric calculator\numeric calculator\numeric calculator.cpp(48): note: No user-defined-conversion operator available that can perform this conversion, or the operator cannot be called
+c:\onedrive\projects\console\numeric calculator\numeric calculator\numeric calculator.cpp(50): error C2065: 'stack': undeclared identifier
+c:\onedrive\projects\console\numeric calculator\numeric calculator\numeric calculator.cpp(50): error C2227: left of '->push' must point to class/struct/union/generic type
+  c:\onedrive\projects\console\numeric calculator\numeric calculator\numeric calculator.cpp(50): note: type is 'unknown-type'
+c:\onedrive\projects\console\numeric calculator\numeric calculator\numeric calculator.cpp(53): error C2065: 'stack': undeclared identifier
+c:\onedrive\projects\console\numeric calculator\numeric calculator\numeric calculator.cpp(53): error C2227: left of '->pop' must point to class/struct/union/generic type
+  c:\onedrive\projects\console\numeric calculator\numeric calculator\numeric calculator.cpp(53): note: type is 'unknown-type'
+c:\onedrive\projects\console\numeric calculator\numeric calculator\numeric calculator.cpp(54): error C2065: 'stack': undeclared identifier
+c:\onedrive\projects\console\numeric calculator\numeric calculator\numeric calculator.cpp(54): error C2227: left of '->pop' must point to class/struct/union/generic type
+  c:\onedrive\projects\console\numeric calculator\numeric calculator\numeric calculator.cpp(54): note: type is 'unknown-type'
+c:\onedrive\projects\console\numeric calculator\numeric calculator\numeric calculator.cpp(57): error C2065: 'stack': undeclared identifier
+c:\onedrive\projects\console\numeric calculator\numeric calculator\numeric calculator.cpp(57): error C2227: left of '->push' must point to class/struct/union/generic type
+  c:\onedrive\projects\console\numeric calculator\numeric calculator\numeric calculator.cpp(57): note: type is 'unknown-type'
+c:\onedrive\projects\console\numeric calculator\numeric calculator\numeric calculator.cpp(60): error C2065: 'stack': undeclared identifier
+c:\onedrive\projects\console\numeric calculator\numeric calculator\numeric calculator.cpp(60): error C2541: 'delete': cannot delete objects that are not pointers
+c:\onedrive\projects\console\numeric calculator\numeric calculator\numeric calculator.cpp(61): error C2065: 'stack': undeclared identifier
+c:\onedrive\projects\console\numeric calculator\numeric calculator\numeric calculator.cpp(70): error C2065: 'Stack': undeclared identifier
+c:\onedrive\projects\console\numeric calculator\numeric calculator\numeric calculator.cpp(70): error C2062: type 'char' unexpected
+c:\onedrive\projects\console\numeric calculator\numeric calculator\numeric calculator.cpp(84): warning C4018: '<': signed/unsigned mismatch
+c:\onedrive\projects\console\numeric calculator\numeric calculator\numeric calculator.cpp(97): error C2065: 'stack': undeclared identifier
+c:\onedrive\projects\console\numeric calculator\numeric calculator\numeric calculator.cpp(97): error C2227: left of '->top' must point to class/struct/union/generic type
+  c:\onedrive\projects\console\numeric calculator\numeric calculator\numeric calculator.cpp(97): note: type is 'unknown-type'
+c:\onedrive\projects\console\numeric calculator\numeric calculator\numeric calculator.cpp(99): error C2065: 'stack': undeclared identifier
+c:\onedrive\projects\console\numeric calculator\numeric calculator\numeric calculator.cpp(99): error C2227: left of '->pop' must point to class/struct/union/generic type
+  c:\onedrive\projects\console\numeric calculator\numeric calculator\numeric calculator.cpp(99): note: type is 'unknown-type'
+c:\onedrive\projects\console\numeric calculator\numeric calculator\numeric calculator.cpp(102): error C2065: 'stack': undeclared identifier
+c:\onedrive\projects\console\numeric calculator\numeric calculator\numeric calculator.cpp(102): error C2227: left of '->pop' must point to class/struct/union/generic type
+  c:\onedrive\projects\console\numeric calculator\numeric calculator\numeric calculator.cpp(102): note: type is 'unknown-type'
+c:\onedrive\projects\console\numeric calculator\numeric calculator\numeric calculator.cpp(107): error C2065: 'stack': undeclared identifier
+c:\onedrive\projects\console\numeric calculator\numeric calculator\numeric calculator.cpp(107): error C2227: left of '->top' must point to class/struct/union/generic type
+  c:\onedrive\projects\console\numeric calculator\numeric calculator\numeric calculator.cpp(107): note: type is 'unknown-type'
+c:\onedrive\projects\console\numeric calculator\numeric calculator\numeric calculator.cpp(107): error C2227: left of '->isEmpty' must point to class/struct/union/generic type
+  c:\onedrive\projects\console\numeric calculator\numeric calculator\numeric calculator.cpp(107): note: type is 'unknown-type'
+c:\onedrive\projects\console\numeric calculator\numeric calculator\numeric calculator.cpp(109): error C2065: 'stack': undeclared identifier
+c:\onedrive\projects\console\numeric calculator\numeric calculator\numeric calculator.cpp(109): error C2227: left of '->pop' must point to class/struct/union/generic type
+  c:\onedrive\projects\console\numeric calculator\numeric calculator\numeric calculator.cpp(109): note: type is 'unknown-type'
+c:\onedrive\projects\console\numeric calculator\numeric calculator\numeric calculator.cpp(112): error C2065: 'stack': undeclared identifier
+c:\onedrive\projects\console\numeric calculator\numeric calculator\numeric calculator.cpp(112): error C2227: left of '->push' must point to class/struct/union/generic type
+  c:\onedrive\projects\console\numeric calculator\numeric calculator\numeric calculator.cpp(112): note: type is 'unknown-type'
+c:\onedrive\projects\console\numeric calculator\numeric calculator\numeric calculator.cpp(117): error C2065: 'stack': undeclared identifier
+c:\onedrive\projects\console\numeric calculator\numeric calculator\numeric calculator.cpp(117): error C2541: 'delete': cannot delete objects that are not pointers
+c:\onedrive\projects\console\numeric calculator\numeric calculator\numeric calculator.cpp(118): error C2065: 'stack': undeclared identifier
+c:\onedrive\projects\console\numeric calculator\numeric calculator\numeric calculator.cpp(125): warning C4018: '<': signed/unsigned mismatch
+c:\onedrive\projects\console\numeric calculator\numeric calculator\numeric calculator.cpp(198): error C2143: syntax error: missing ';' before '*'
+  c:\onedrive\projects\console\numeric calculator\numeric calculator\numeric calculator.cpp(244): note: see reference to class template instantiation 'Stack<t>' being compiled
+c:\onedrive\projects\console\numeric calculator\numeric calculator\numeric calculator.cpp(198): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
+c:\onedrive\projects\console\numeric calculator\numeric calculator\numeric calculator.cpp(198): error C2238: unexpected token(s) preceding ';'
+c:\onedrive\projects\console\numeric calculator\numeric calculator\numeric calculator.cpp(200): error C2143: syntax error: missing ';' before '*'
+c:\onedrive\projects\console\numeric calculator\numeric calculator\numeric calculator.cpp(200): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
+c:\onedrive\projects\console\numeric calculator\numeric calculator\numeric calculator.cpp(200): error C2238: unexpected token(s) preceding ';'
+c:\onedrive\projects\console\numeric calculator\numeric calculator\numeric calculator.cpp(201): error C2061: syntax error: identifier 'T'
+c:\onedrive\projects\console\numeric calculator\numeric calculator\numeric calculator.cpp(209): error C3646: 'pop': unknown override specifier
+c:\onedrive\projects\console\numeric calculator\numeric calculator\numeric calculator.cpp(209): error C2059: syntax error: '('
+c:\onedrive\projects\console\numeric calculator\numeric calculator\numeric calculator.cpp(210): error C2334: unexpected token(s) preceding '{'; skipping apparent function body
