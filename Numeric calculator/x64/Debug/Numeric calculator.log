@@ -1,8 +1,7 @@
-﻿  stdafx.cpp
-  Numeric calculator.cpp
-c:\onedrive\projects\console\numeric calculator\numeric calculator\numeric calculator.cpp(81): warning C4267: '=': conversion from 'size_t' to 'int', possible loss of data
-c:\onedrive\projects\console\numeric calculator\numeric calculator\numeric calculator.cpp(121): warning C4267: '=': conversion from 'size_t' to 'int', possible loss of data
-c:\onedrive\projects\console\numeric calculator\numeric calculator\numeric calculator.cpp(206): warning C4715: 'getPriority': not all control paths return a value
-c:\onedrive\projects\console\numeric calculator\numeric calculator\numeric calculator.cpp(238): warning C4715: 'calc': not all control paths return a value
+﻿  Numeric calculator.cpp
+c:\onedrive\projects\console\numeric calculator\numeric calculator\numeric calculator.cpp(138): warning C4267: '=': conversion from 'size_t' to 'int', possible loss of data
+c:\onedrive\projects\console\numeric calculator\numeric calculator\numeric calculator.cpp(184): warning C4267: '=': conversion from 'size_t' to 'int', possible loss of data
+c:\onedrive\projects\console\numeric calculator\numeric calculator\numeric calculator.cpp(113): warning C4715: 'Stack<double>::calc': not all control paths return a value
+c:\onedrive\projects\console\numeric calculator\numeric calculator\numeric calculator.cpp(260): warning C4715: 'getPriority': not all control paths return a value
   Numeric calculator.vcxproj -> C:\OneDrive\projects\Console\Numeric calculator\x64\Debug\Numeric calculator.exe
   Numeric calculator.vcxproj -> C:\OneDrive\projects\Console\Numeric calculator\x64\Debug\Numeric calculator.pdb (Partial PDB)

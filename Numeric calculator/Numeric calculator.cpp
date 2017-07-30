@@ -4,18 +4,23 @@
 #include "stdafx.h"
 
 #include <iostream>
+#include <iomanip>
 #include <string>
 #include <cctype>
-#include <iomanip>
+#include <cmath>
 using namespace std;
 
 int parseString(string, string*);
 int isOperator(char);
-double calc(double firstNum, char operate, double secondNum);
 string extractNum(char*, int&);
-string filterstr(string);
 int getPriority(char);
 double calcRevPolish(string*, int);
+string filterStr(string);
+char lowerCase(char);
+string lowerCase(string);
+
+///////////////////////////////////////////////////////////////////
+//Template class implementing the stack structure
 template <typename T>
 class Stack
 {
@@ -23,6 +28,7 @@ private:
 	T* stackArray = nullptr;
 public:
 	T* top = nullptr;
+
 	void push(T elem)
 	{
 		if (top == nullptr)
@@ -31,11 +37,12 @@ public:
 			top++;
 		*top = elem;
 	}
+
 	T pop()
 	{
 		if (top == nullptr)
 		{
-			cerr << "An empty array cannot be popped." << endl;
+			//cerr << "An empty array cannot be popped." << endl;	//For test use.
 			return 0;
 		}
 		else if (top == stackArray)
@@ -50,39 +57,95 @@ public:
 			return *(top + 1);
 		}
 	}
+
 	inline int isEmpty()
 	{
 		if (top == nullptr)
 			return 1;
 		else return 0;
 	}
+
+	//To perform the basic calculations
+	double calc(char operate)
+	{
+		double firstNum, secondNum;
+		switch (operate)
+		{
+		case '+':
+			secondNum = this->pop();
+			firstNum = this->pop();
+			return firstNum + secondNum;
+		case '-':
+			secondNum = this->pop();
+			firstNum = this->pop();
+			return firstNum - secondNum;
+		case '*':
+			secondNum = this->pop();
+			firstNum = this->pop();
+			return firstNum * secondNum;
+		case '/':
+			secondNum = this->pop();
+			firstNum = this->pop();
+			if (secondNum == 0)
+			{
+				cerr << "Divisor cannot be 0." << endl;
+				err = 1;
+				return 0;
+			}
+			return firstNum / secondNum;
+			break;
+		case 'l':
+			secondNum = this->pop();
+			firstNum = this->pop();
+			if (firstNum <= 0 || secondNum <= 0)
+			{
+				cerr << "A logarithm does not exist for numbers <= 0." << endl;
+				err = 1;
+				return 0;
+			}
+			return log(secondNum) / log(firstNum);
+		case 'r':
+			secondNum = this->pop();
+			firstNum = this->pop();
+			return pow(secondNum, (1 / firstNum));
+			break;
+		}
+	}
+
 	Stack(int size)
 	{
 		stackArray = new T[size];
 	}
+
 	~Stack()
 	{
 		delete[] stackArray;
 		stackArray = nullptr;
 	}
 };
+///////////////////////////////////////////////////////////////////
 
-
-//The size of input
-int maxSize;
+int maxSize;	//The size of input
+int err = 0;	//Indicates mathematical errors
 
 int main()
 {
 	string exp;
 	while (1)
 	{
-		cout << "Input your expression:" << endl;
+		cout << "Input your math expression:" << endl;
 		getline(cin, exp);
 		maxSize = exp.size();
 		string* outstr = new string[maxSize + 1];
 		int count = parseString(exp, outstr);
 		double result = calcRevPolish(outstr, count);
-		cout << setprecision(16) << result << endl;
+		if (err == 1)
+		{
+			cerr << "Error\n" << endl;
+			err = 0;
+		}
+		else
+			cout << setprecision(16) << result << '\n' << endl;
 		//cleanup
 		delete[] outstr;
 	}
@@ -100,11 +163,11 @@ double calcRevPolish(string* revPolish, int count)
 			dstack->push(stod(revPolish[i]));
 			i++;
 		}
-		double num1 = dstack->pop();
-		double num2 = dstack->pop();
-		double result = calc(num2, revPolish[i][0], num1);
+		double stepResult = dstack->calc(revPolish[i][0]);
+		dstack->push(stepResult);
 		i++;
-		dstack->push(result);
+		if (err == 1)
+			return 0;
 	}
 	double result = dstack->pop();
 	//cleanup
@@ -117,34 +180,32 @@ double calcRevPolish(string* revPolish, int count)
 //Process the input string into an array of reverse Polish strings. Numbers are recorded as strings, too.
 int parseString(string raw, string* outstr)
 {
-	string exp = filterstr(raw);
+	string exp = filterStr(raw);
 	maxSize = exp.size();
 	int i = 0;
-	int isPositive = 1;	//indicates if the current number is positive
 	Stack<char>* stack = new Stack<char>(maxSize);
 	int outcount = 0;
+	int minus = 0;
 	while (i < maxSize)
 	{
 		if (exp[i] == '-' && (i == 0 || exp[i - 1] == '(') && isdigit(exp[i + 1]))
 		{
-			isPositive = -1;
+			outstr[outcount++].push_back('0');
+			minus = 1;
 			i++;
 		}
 		if (isdigit(exp[i]) || exp[i] == '.')
 		{
 			int count = 0;
-			string tempstr = extractNum(&exp[i], count);	//A string that reads the digits that form an operon
-			//if this number starts with '-' sign, set it as minus
-			if (isPositive == -1)
-			{
-				outstr[outcount].push_back('-');
-				isPositive = 1;	//reset positivity status
-			}
-			outstr[outcount] += tempstr;	//send the operon to the formatted string array
-			outcount++;	//process the next operator or operon
+			outstr[outcount++] = extractNum(&exp[i], count);	//A string that reads the digits that form an operon
 			i += count;	//move the reading point forward
 		}
-		else if (isOperator(exp[i]))
+		if (minus == 1)
+		{
+			outstr[outcount++].push_back('-');
+			minus = 0;
+		}
+		if (isOperator(exp[i]))
 		{
 			if (exp[i] == ')')	//With a closed parentheses, pop all out until the last opening parentheses
 			{
@@ -155,11 +216,9 @@ int parseString(string raw, string* outstr)
 				stack->pop();
 				i++;
 			}
-			//Never pop an opening parentheses unless receiving a closing parentheses
+			//Never pop an opening bracket unless receiving a closing one
 			while (!stack->isEmpty() && getPriority(exp[i]) <= getPriority(*(stack->top)) && *(stack->top) != '(')
-			{
 				outstr[outcount++].push_back(stack->pop());
-			}
 			if (i < maxSize)
 			{
 				stack->push(exp[i]);
@@ -178,21 +237,9 @@ int parseString(string raw, string* outstr)
 	//cleanup
 	return outcount;
 }
-//To remove all non-numbers, non-operators
-string filterstr(string instr)
-{
-	string outstr;
-	for (int i = 0; i < instr.size(); i++)
-	{
-		if (isdigit(instr[i]) || instr[i] == '.' || isOperator(instr[i]))
-		{
-			outstr.push_back(instr[i]);
-		}
-	}
-	return outstr;
-}
-//priority of operators. Parentheses can be ignored, since they will be processed separately anyway
-int getPriority(char op)
+
+//priority of operators. Parentheses can be ignored, since they will be parsed separately
+inline int getPriority(char op)
 {
 	switch (op)
 	{
@@ -202,40 +249,31 @@ int getPriority(char op)
 	case '*':
 	case '/':
 		return 1;
+	case'l':
+		return 3;
+	case 'r':
+		return 2;
+	case '(':
+	case ')':
+		return 100;
 	}
 }
-//To chack if a char is an operator
+
+//Only these operators are supported
 int isOperator(char ch)
 {
-	if (ch == '(' || ch == ')' || ch == '+' || ch == '-' || ch == '*' || ch == '/')
+	ch = lowerCase(ch);
+	if (ch == '(' || ch == ')' || ch == '+' || ch == '-' || ch == '*' || ch == '/' || ch == 'r' || ch == 'l')
 		return 1;
 	else return 0;
 }
-//just for convenience. A string with length of 1 is basically the same thing as char
+
+//A string overload of the above isOperator function
 int isOperator(string str)
 {
-	char ch = str[0];
-	return isOperator(ch);
+	return isOperator(str[0]);
 }
-//To perform the basic calculations
-inline double calc(double firstNum, char operate, double secondNum)
-{
-	switch (operate)
-	{
-	case '+':
-		return firstNum + secondNum;
-		break;
-	case '-':
-		return firstNum - secondNum;
-		break;
-	case '*':
-		return firstNum * secondNum;
-		break;
-	case '/':
-		return firstNum / secondNum;
-		break;
-	}
-}
+
 //Read from the char string until the number ends and an operator appears
 string extractNum(char* raw, int& count)
 {
@@ -248,6 +286,51 @@ string extractNum(char* raw, int& count)
 	return outstr;
 }
 
+//To remove all non-numbers, non-operators, and abbraviate "sqrt" to 's' and "log" to 'l'.
+string filterStr(string exp)
+{
+	string outstr;
+	int i = 0;
+	while (i < exp.size())
+	{
+		if (lowerCase(exp.substr(i, 4)) == "sqrt")
+		{
+			outstr.append("2r");
+			i += 4;
+		}
+		if (lowerCase(exp.substr(i, 3)) == "log")
+		{
+			if (!isdigit(exp[i - 1]))
+				outstr.push_back('2');
+			outstr.push_back('l');
+			i += 3;
+		}
+		if (lowerCase(exp.substr(i, 4)) == "root")
+		{
+			outstr.push_back('r');
+			i += 4;
+		}
+		if (isdigit(exp[i]) || exp[i] == '.' || isOperator(exp[i]))
+			outstr.push_back(exp[i]);
+		i++;
+	}
+	return outstr;
+}
 
+//get the lower case of the string, used for sqrt and log
+string lowerCase(string str)
+{
+	for (int i = 0; i < str.size(); i++)
+		if (str[i] >= 'A' && str[i] <= 'Z')
+			str[i] -= 'A' - 'a';
+	return str;
+}
 
+//get the lower case of the char, used for s and l
+char lowerCase(char ch)
+{
+	if (ch >= 'A' && ch <= 'Z')
+		ch -= 'A' - 'a';
+	return ch;
+}
 
