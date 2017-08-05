@@ -1,10 +1,12 @@
 ﻿  stdafx.cpp
   Numeric calculator.cpp
-Numeric calculator.cpp(138): warning C4267: '=': conversion from 'size_t' to 'int', possible loss of data
-Numeric calculator.cpp(184): warning C4267: '=': conversion from 'size_t' to 'int', possible loss of data
+Numeric calculator.cpp(171): warning C4267: '=': conversion from 'size_t' to 'int', possible loss of data
+Numeric calculator.cpp(218): warning C4267: '=': conversion from 'size_t' to 'int', possible loss of data
   Generating code
-c:\onedrive\projects\console\numeric calculator\numeric calculator\numeric calculator.cpp(260): warning C4715: 'getPriority': not all control paths return a value
-c:\onedrive\projects\console\numeric calculator\numeric calculator\numeric calculator.cpp(113): warning C4715: 'Stack<double>::calc': not all control paths return a value
+c:\onedrive\projects\console\numeric calculator\numeric calculator\numeric calculator.cpp(301): warning C4715: 'getPriority': not all control paths return a value
+c:\onedrive\projects\console\numeric calculator\numeric calculator\numeric calculator.cpp(144): warning C4715: 'Stack<double>::calc': not all control paths return a value
+c:\onedrive\projects\console\numeric calculator\numeric calculator\numeric calculator.cpp(114): warning C4700: uninitialized local variable 'firstInt' used
+c:\onedrive\projects\console\numeric calculator\numeric calculator\numeric calculator.cpp(114): warning C4700: uninitialized local variable 'secondInt' used
   All 155 functions were compiled because no usable IPDB/IOBJ from previous compilation was found.
   Finished generating code
   Numeric calculator.vcxproj -> C:\OneDrive\projects\Console\Numeric calculator\x64\Release\Numeric calculator.exe
