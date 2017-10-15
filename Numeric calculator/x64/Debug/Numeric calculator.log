@@ -1,7 +1,10 @@
 ﻿  Numeric calculator.cpp
-c:\onedrive\projects\console\numeric calculator\numeric calculator\numeric calculator.cpp(138): warning C4267: '=': conversion from 'size_t' to 'int', possible loss of data
-c:\onedrive\projects\console\numeric calculator\numeric calculator\numeric calculator.cpp(184): warning C4267: '=': conversion from 'size_t' to 'int', possible loss of data
-c:\onedrive\projects\console\numeric calculator\numeric calculator\numeric calculator.cpp(113): warning C4715: 'Stack<double>::calc': not all control paths return a value
-c:\onedrive\projects\console\numeric calculator\numeric calculator\numeric calculator.cpp(260): warning C4715: 'getPriority': not all control paths return a value
+c:\onedrive\projects\console\numeric calculator\numeric calculator\numeric calculator.cpp(177): warning C4267: '=': conversion from 'size_t' to 'int', possible loss of data
+c:\onedrive\projects\console\numeric calculator\numeric calculator\numeric calculator.cpp(232): warning C4267: '=': conversion from 'size_t' to 'int', possible loss of data
+c:\onedrive\projects\console\numeric calculator\numeric calculator\numeric calculator.cpp(365): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+c:\onedrive\projects\console\numeric calculator\numeric calculator\numeric calculator.cpp(150): warning C4715: 'Stack<double>::calc': not all control paths return a value
+c:\onedrive\projects\console\numeric calculator\numeric calculator\numeric calculator.cpp(329): warning C4715: 'getPriority': not all control paths return a value
+c:\onedrive\projects\console\numeric calculator\numeric calculator\numeric calculator.cpp(119): warning C4700: uninitialized local variable 'firstInt' used
+c:\onedrive\projects\console\numeric calculator\numeric calculator\numeric calculator.cpp(119): warning C4700: uninitialized local variable 'secondInt' used
   Numeric calculator.vcxproj -> C:\OneDrive\projects\Console\Numeric calculator\x64\Debug\Numeric calculator.exe
   Numeric calculator.vcxproj -> C:\OneDrive\projects\Console\Numeric calculator\x64\Debug\Numeric calculator.pdb (Partial PDB)

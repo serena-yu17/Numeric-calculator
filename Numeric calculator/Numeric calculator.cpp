@@ -18,7 +18,6 @@ double calcRevPolish(string*, int);
 string filterStr(string);
 char lowerCase(char);
 string lowerCase(string);
-void modifyPowerSeq(string*, int);
 
 //Template class implementing the stack
 template <typename T>
@@ -28,6 +27,11 @@ private:
 	T* stackArray = nullptr;
 public:
 	T* top = nullptr;
+
+	size_t size()
+	{
+		return top - stackArray + 1;
+	}
 
 	void push(T elem)
 	{
@@ -70,6 +74,7 @@ public:
 	{
 		double firstNum, secondNum;
 		int firstInt, secondInt;
+		double res;
 		switch (operate)
 		{
 		case '+':
@@ -115,7 +120,8 @@ public:
 		case '^':
 			secondNum = this->pop();
 			firstNum = this->pop();
-			return pow(firstNum, secondNum);
+			res = pow(firstNum, secondNum);
+			return res;
 		case '/':
 			secondNum = this->pop();
 			firstNum = this->pop();
@@ -197,9 +203,17 @@ double calcRevPolish(string* revPolish, int count)
 			dstack->push(stod(revPolish[i]));
 			i++;
 		}
-		double stepResult = dstack->calc(revPolish[i][0]);
-		dstack->push(stepResult);
-		i++;
+		if (dstack->size() < 2 && i < count && isOperator(revPolish[i][0]))
+		{
+			cerr << "Operators and operands are not paired.\n";
+			err = 1;
+		}
+		if (i < count && isOperator(revPolish[i][0]))
+		{
+			double stepResult = dstack->calc(revPolish[i][0]);
+			dstack->push(stepResult);
+			i++;
+		}
 		if (err == 1)
 			return 0;
 	}
@@ -222,7 +236,7 @@ int parseString(string raw, string* outstr)
 	int minus = 0;
 	while (i < maxSize)
 	{
-		if (exp[i] == '-' && (i == 0 || exp[i - 1] == '(') && isdigit(exp[i + 1]))
+		if (i < maxSize - 1 && exp[i] == '-' && (i == 0 || exp[i - 1] == '(') && isdigit(exp[i + 1]))
 		{
 			outstr[outcount++].push_back('0');
 			minus = 1;
@@ -230,23 +244,32 @@ int parseString(string raw, string* outstr)
 		}
 		if (isdigit(exp[i]) || exp[i] == '.')
 		{
-			int count = 0;
-			outstr[outcount++] = extractNum(&exp[i], count);	//A string that reads the digits that form an operon
-			i += count;	//move the reading point forward
+			string numStr;
+			while (i < maxSize && (isdigit(exp[i]) || exp[i] == '.'))
+			{
+				numStr.push_back(exp[i]);
+				i++;
+			}
+			outstr[outcount++] = numStr;	//A string that reads the digits that form an operon
 		}
 		if (minus == 1)
 		{
 			outstr[outcount++].push_back('-');
 			minus = 0;
 		}
-		if (isOperator(exp[i]))
+		if (i < maxSize && isOperator(exp[i]))
 		{
 			//With a closed parentheses, pop all out until the last opening parentheses
-			if (exp[i] == ')')	
+			if (exp[i] == ')')
 			{
 				while (!stack->isEmpty() && *(stack->top) != '(')
 				{
 					outstr[outcount++].push_back(stack->pop());
+				}
+				if (stack->isEmpty())
+				{
+					cerr << "Parentheses are not paired.\n";
+					err = 1;
 				}
 				stack->pop();
 				i++;
@@ -254,11 +277,11 @@ int parseString(string raw, string* outstr)
 			//consective power operator combines to the right, e.g. 2 ^ 3 ^ 4 == 2 ^ (3 ^ 4) == 2^ 81, not 4096.
 			if (!stack->isEmpty() && (exp[i] != '^' || *(stack->top) != '^'))
 				//Never pop an opening bracket unless receiving a closing one
-				while (!stack->isEmpty() && getPriority(exp[i]) <= getPriority(*(stack->top)) && *(stack->top) != '(')
+				while (!stack->isEmpty() && *(stack->top) != '(' && (i == maxSize || getPriority(exp[i]) <= getPriority(*(stack->top))))
 				{
 					outstr[outcount++].push_back(stack->pop());
 				}
-			if (i < maxSize)
+			if (i < maxSize && exp[i] != ')')
 			{
 				stack->push(exp[i]);
 				i++;
@@ -268,6 +291,11 @@ int parseString(string raw, string* outstr)
 	//pop out all remaining elements
 	while (!stack->isEmpty())
 	{
+		if (*(stack->top) == '(')
+		{
+			cerr << "Parentheses are not paired.\n";
+			err = 1;
+		}
 		outstr[outcount++].push_back(stack->pop());
 	}
 	//cleanup
@@ -329,24 +357,18 @@ inline int isOperator(string str)
 	return isOperator(str[0]);
 }
 
-//Read from the char string until the number ends and an operator appears
-string extractNum(char* raw, int& count)
-{
-	string outstr;
-	while (isdigit(raw[count]) || raw[count] == '.')
-	{
-		outstr.push_back(raw[count]);
-		count++;
-	}
-	return outstr;
-}
 
 //To remove all non-numbers, non-operators, and abbraviate "sqrt" to 's' and "log" to 'l'.
 string filterStr(string exp)
 {
 	string outstr;
-	int i = 0;
-	while (i < exp.size())
+	int i = 0, ub = exp.size();
+	while (exp[i] == '(' && exp[ub - 1] == ')')
+	{
+		i++;
+		ub--;
+	}
+	while (i < ub)
 	{
 		if (lowerCase(exp.substr(i, 4)) == "sqrt")
 		{
